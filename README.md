@@ -1,4 +1,4 @@
-# react-plugin-operator
+# babel-plugin-operator
 
 ## Description
 This is a [babel](https://github.com/babel/babel) plugin that adds operator overloading into javascript.
