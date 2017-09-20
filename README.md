@@ -56,18 +56,35 @@ console.log(d);		//would be 'A string!A string!A string!'
 It can be more. For example, by adding this plugin with [Crunch](https://github.com/vukicevic/crunch), we'll get an arbitrary-precision integer type that can be used conveniently.
 
 ## Installation
+### Taste it now
+This project is actually a source code compiler, see [Principle](#principle) for more.
+
+The fastest way to use it is downloading this repo and run
+
+```
+node run.js source.js > dest.js
+```
+
+and the `dest.js` is yours.
+
+### Install it
+For it's based on babel, you can use it wherever you can use babel. Additional source mapping will be available for you to debug.
+
 First you should make your [babel](https://github.com/babel/babel) working.
 
 And install the package.
 
 ```
-pending...
+npm install babel-plugin-operator --save
 ```
 
 And configure your `.babelrc`.
 
-```
-pending...
+``` javascript
+{
+  "presets": ["es2015", "react", "stage-2"],
+  "plugins": ["operator"]
+}
 ```
 
 
