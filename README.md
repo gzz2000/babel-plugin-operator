@@ -6,7 +6,7 @@ This is a [babel](https://github.com/babel/babel) plugin that adds operator over
 ## Examples
 ### 1
 Below is an example that implemented a simple Point or Vector on a planar. We should allow programmer to `add` two Points or to `multiply` one Point by a certain factor.
-```
+``` javascript
 class Point {
     x = 0;
     y = 0;
@@ -29,14 +29,14 @@ class Point {
 ```
 
 And below is the usage of it.
-```
+``` javascript
 let a = new Point(1, 2), b = new Point(3, 4);
 
 console.log(a + b * 3);
 ```
 
 ### 2
-```
+``` javascript
 String.prototype.operatorMul = function(times) {
     console.log(times);
     let ret = '';
@@ -46,7 +46,7 @@ String.prototype.operatorMul = function(times) {
 ```
 
 After this, we can:
-```
+``` javascript
 let c = 'A string!';
 let d = c * 3;
 console.log(d);		//would be 'A string!A string!A string!'
@@ -74,7 +74,7 @@ pending...
 ## Usage
 First, insert a certain function into your class.
 
-```
+``` javascript
 '+': 'operatorAdd',
 '-': 'operatorSub',
 '*': 'operatorMul',
@@ -102,12 +102,12 @@ Make the function accept one parameter as the right data, `this` as the left dat
 ## Principle
 This is a plugin of babeljs. By simply modifying the AST, it will replace
 
-```
+``` javascript
 a + b
 ```
 
 with
 
-```
+``` javascript
 _Op_Add(a, b)
 ```
