@@ -27,8 +27,8 @@ class Point {
     }
 };
 ```
+after this, we can:
 
-And below is the usage of it.
 ``` javascript
 let a = new Point(1, 2), b = new Point(3, 4);
 
@@ -57,7 +57,7 @@ It can be more. For example, by adding this plugin with [Crunch](https://github.
 
 ## Installation
 ### Taste it now
-This project is actually a source code compiler, see [Principle](#principle) for more.
+This project can be used as a source code converter, see [Principle](#principle) for more information.
 
 The fastest way to use it is downloading this repo and run
 
@@ -65,7 +65,7 @@ The fastest way to use it is downloading this repo and run
 node run.js source.js > dest.js
 ```
 
-and the `dest.js` is yours.
+and check `dest.js` and run it.
 
 ### Install it
 For it's based on babel, you can use it wherever you can use babel. Additional source mapping will be available for you to debug.
@@ -82,14 +82,20 @@ And configure your `.babelrc`.
 
 ``` javascript
 {
-  "presets": ["es2015", "react", "stage-2"],
+  "presets": ["es2015", "stage-2"],
   "plugins": ["operator"]
 }
 ```
 
 
 ## Usage
-First, insert a certain function into your class.
+First, put a magic word at the very top of your source file:
+``` javascript
+'bpo enable';
+```
+This will make the overloading available in the whole file.
+
+After that, all you need to do is to insert a certain function into your class, which can calculate the right answer for an operator.
 
 ``` javascript
 '+': 'operatorAdd',
@@ -112,9 +118,9 @@ First, insert a certain function into your class.
 '!=': 'operatorNotEqual',
 ```
 
-Make the function accept one parameter as the right data, `this` as the left data, and do what you like.
+For example, `a + b` will be redirected to `a.operatorAdd(b)`. If `a` doesn't have a function named `operatorAdd`, the operator falls back to the original `+`.
 
-> Hint: For the comparison operators, we will call the propriate function for you. This means if you only declared a `operatorLess`, you will get `< > <= >=` all work right. Defining other functions is only needed if you need a special comparison rule such as a partial order.
+> Hint: For the comparison operators, we will call the propriate function for you. This means if you only declared a `operatorLess`, you will get `< > <= >=` all work right. Defining other functions is only needed if you need a special comparison rule such as a partial order. Same to `operatorEqual` and `operatorNotEqual`.
 
 ## Principle
 This is a plugin of babeljs. By simply modifying the AST, it will replace
@@ -126,5 +132,28 @@ a + b
 with
 
 ``` javascript
-_Op_Add(a, b)
+_Op.add(a, b)
 ```
+
+while `_Op.add` is like this:
+
+``` javascript
+add(a, b) {
+	if(a.operatorAdd) return a.operatorAdd(b);
+	else return a + b;
+}
+```
+
+## Controllers
+Because that we implemented this by replacing calculations with function calls, it may cause lack of speed. Our suggestion is that we disable the overloading in some functions which have intensive computing.
+
+The way to do this is to add a string in front of the function body as a mark:
+
+``` javascript
+function foo() {
+	'bpo disable';
+    //your code
+}
+```
+
+Actually, the plugin is disabled by default, so we added a string `'bpo enable';` in front of the file just now. if we remove it, we can add it to certain functions that need the overloading.

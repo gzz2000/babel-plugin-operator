@@ -1,4 +1,6 @@
 
+'bpo enable';
+
 console.log('hello, world!');
 
 class Point {
@@ -58,4 +60,3 @@ String.prototype.operatorMul = function(times) {
 let d = c * 3;
 
 console.log(d);
-
