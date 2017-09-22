@@ -59,13 +59,14 @@ It can be more. For example, by adding this plugin with [Crunch](https://github.
 ### Taste it now
 This project can be used as a source code converter, see [Principle](#principle) for more information.
 
-The fastest way to use it is downloading this repo and run
+The fastest way to use it is downloading this repo, putting your code into `source.js` and execute:
 
 ```
+npm install
 node run.js source.js > dest.js
 ```
 
-and check `dest.js` and run it.
+then check `dest.js` and run it.
 
 ### Install it
 For it's based on babel, you can use it wherever you can use babel. Additional source mapping will be available for you to debug.
